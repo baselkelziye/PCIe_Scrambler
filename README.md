@@ -26,14 +26,32 @@ Receive LFSR on any Lane of that Link, the LFSR on the Receive side is initializ
 
 Check out the [PCIe 2.0 Base Specification](https://community.intel.com/cipcp26785/attachments/cipcp26785/fpga-intellectual-property/8220/1/PCI_Express_Base_Specification_v20.pdf) for more information on scrambling rules.
 ## 📜  Documentation 
-The scrambler takes  clock, reset, data/control control signal, data length and the input data as inputs.
-According to the data length it perform the scrambling functionality.
-| data_len_i | Scramble Byte Amount |
+The Inputs and Output Ports for the Scrambler Component, Each input is postfixed with "_i" and the output with "_o"
+| Inputs | Outputs|
+|--------|--------|
+|clk_i| ----------------------|
+|rst_i| ----------------------|
+|datak_i| datak_o  |
+|data_len_i| data_len_o|
+|indata_i| scrambled_data_o|
+Inputs Explanations:
+At times, we may need to scramble 1 byte, 2 bytes, or 4 bytes. The input size is fixed at 32 bits, and the variable `data_len_i` is used to specify the desired size.
+| data_len_i | Scramble The|
 |------------|----------------------|
-|**00**     |  Lower 1 Byte|
-|**01**     | Lower 2 Byte|
-|**10**     | Whole Input|
-- `scrambler_top.v`: Wrapper 
+|**00**     | indata_i[7:0] is Valid|
+|**01**     | indata_i[15:0] is Valid|
+|**10**     | indata_i[31:0] is valid|
+
+|datak_i | Control Byte|
+|--------|-------------|
+|**0001**| indata_i[7:0] is K Code|
+|**0010**| indata_i[15:8] is K Code|
+|**0100**| indata_i[23:16] is K Code|
+|**1000**| indata_i[31:24] is K Code|
+- `scrambler_top.v`: Wrapper module.
+- `lfsr8.v`: Parallel LFSR, Takes the state as input, and advances the lfsr8 (if required)
+- `scramble_data.v`: Scrambling Block, Scrambles according the specs
+- `pcie_encodings.vh`: Verilog Header file for encodings of the PCIe Symbols.
 
 The initial 16-bit values of the LFSR for the first 128 LFSR advances following a reset are listed
 below: 
