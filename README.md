@@ -25,3 +25,51 @@ Transmit LFSR, the LFSR on the Transmit side is initialized. Every time a COM en
 Receive LFSR on any Lane of that Link, the LFSR on the Receive side is initialized.
 
 Check out the [PCIe 2.0 Base Specification](https://community.intel.com/cipcp26785/attachments/cipcp26785/fpga-intellectual-property/8220/1/PCI_Express_Base_Specification_v20.pdf) for more information on scrambling rules.
+
+The initial 16-bit values of the LFSR for the first 128 LFSR advances following a reset are listed
+below: 
+
+|         |   0, 8   |   1, 9   |   2, A  |   3, B   |  4, C   |   5, D   |   6, E   |   7, F   |     
+|---------|-------|-------|-------|-------|-------|-------|-------|-------
+| **00**  | FFFF  | E817  | 0328  | 284B  | 4DE8  | E755  | 404F  | 4140  |       |       |       |       |       |       |       |       |
+| **08**  | 4E79  | 761E  | 1466  | 6574  | 7DBD  | B6E5  | FDA6  | B165  |       |       |       |       |       |       |       |       |
+| **10**  | 7D09  | 02E5  | E572  | 673D  | 34CF  | CB54  | 4743  | 4DEF  |       |       |       |       |       |       |       |       |
+| **18**  | E055  | 40E0  | EE40  | 54BE  | B334  | 2C7B  | 7D0C  | 07E5  |       |       |       |       |       |       |       |       |
+| **20**  | E5AF  | BA3D  | 248A  | 8DC4  | D995  | 85A1  | BD5D  | 4425  |       |       |       |       |       |       |       |       |
+| **28**  | 2BA4  | A2A3  | B8D2  | CBF8  | EB43  | 5763  | 6E7F  | 773E  |       |       |       |       |       |       |       |       |
+| **30**  | 345F  | 5B54  | 5853  | 5F18  | 14B7  | B474  | 6CD4  | DC4C  |       |       |       |       |       |       |       |       |
+| **38**  | 5C7C  | 70FC  | F6F0  | E6E6  | F376  | 603B  | 3260  | 64C2  |       |       |       |       |       |       |       |       |
+| **40**  | CB84  | 9743  | 5CBF  | B3FC  | E47B  | 6E04  | 0C3E  | 3F2C  |       |       |       |       |       |       |       |       |
+| **48**  | 29D7  | D1D1  | C069  | 7BC0  | CB73  | 6043  | 4A60  | 6FFA  |       |       |       |       |       |       |       |       |
+| **50**  | F207  | 1102  | 01A9  | A939  | 2351  | 566B  | 6646  | 4FF6  |       |       |       |       |       |       |       |       |
+| **58**  | F927  | 3081  | 85B0  | AC5D  | 478C  | 82EF  | F3F2  | E43B  |       |       |       |       |       |       |       |       |
+| **60**  | 2E04  | 027E  | 7E72  | 79AE  | A501  | 1A7D  | 7F2A  | 2197  |       |       |       |       |       |       |       |       |
+| **68**  | 9019  | 0610  | 1096  | 9590  | 8FCD  | D0E7  | F650  | 46E6  |       |       |       |       |       |       |       |       |
+| **70**  | E8D6  | C228  | 3AB2  | B70A  | 129F  | 9CE2  | FC3C  | 2B5C  |       |       |       |       |       |       |       |       |
+| **78**  | 5AA3  | AF6A  | 70C7  | CDF0  | E3D5  | C0AB  | B9C0  | D9C1  |       |       |       |       |       |       |       |       |
+
+An 8-bit value of 0 repeatedly encoded with the LFSR after reset produces the following consecutive
+8-bit values: 
+
+|         |   00  |   01  |   02  |   03  |   04  |   05  |   06  |   07  |   08  |   09  |   0A  |   0B  |   0C  |   0D  |   0E  |   0F  |
+|---------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
+| **00**  | FF    | 17    | C0    | 14    | B2    | E7    | 02    | 82    | 72    | 6E    | 28    | A6    | BE    | 6D    | BF    | 8D    |
+| **10**  | BE    | 40    | A7    | E6    | 2C    | D3    | E2    | B2    | 07    | 02    | 77    | 2A    | CD    | 34    | BE    | E0    |
+| **20**  | A7    | 5D    | 24    | B1    | 9B    | A1    | BD    | 22    | D4    | 45    | 1D    | D3    | D7    | EA    | 76    | EE    |
+| **30**  | 2C    | DA    | 1A    | FA    | 28    | 2D    | 36    | 3B    | 3A    | 0E    | 6F    | 67    | CF    | 06    | 4C    | 26    |
+| **40**  | D3    | E9    | 3A    | CD    | 27    | 76    | 30    | FC    | 94    | 8B    | 03    | DE    | D3    | 06    | 52    | F6    |
+| **50**  | 4F    | 88    | 80    | 95    | C4    | 6A    | 66    | F2    | 9F    | 0C    | A1    | 35    | E2    | 41    | CF    | 27    |
+| **60**  | 74    | 40    | 7E    | 9E    | A5    | 58    | FE    | 84    | 09    | 60    | 08    | A9    | F1    | 0B    | 6F    | 62    |
+| **70**  | 17    | 43    | 5C    | ED    | 48    | 39    | 3F    | D4    | 5A    | F5    | 0E    | B3    | C7    | 03    | 9D    | 9B    |
+| **80**  | 8B    | 0D    | 8E    | 5C    | 33    | 98    | 77    | AE    | 2D    | AC    | 0B    | 3E    | DA    | 0B    | 42    | 7A    |
+| **90**  | 7C    | D1    | CF    | A8    | 1C    | 12    | EE    | 41    | C2    | 3F    | 38    | 7A    | 0D    | 69    | F4    | 01    |
+| **A0**  | DA    | 31    | 72    | C5    | A0    | D7    | 93    | 0E    | DC    | AF    | A4    | 55    | E7    | F0    | 72    | 16    |
+| **B0**  | 68    | D5    | 38    | 84    | DD    | 00    | CD    | 18    | 9E    | CA    | 30    | 59    | 4C    | 75    | 1B    | 77    |
+| **C0**  | 31    | C5    | ED    | CF    | 91    | 64    | 6E    | 3D    | FE    | E8    | 29    | 04    | CF    | 6C    | FC    | C4    |
+| **D0**  | 0B    | 5E    | DA    | 62    | BA    | 5B    | AB    | DF    | 59    | B7    | 7D    | 37    | 5E    | E3    | 1A    | C6    |
+| **E0**  | 88    | 14    | F5    | 4F    | 8B    | C8    | 56    | CB    | D3    | 10    | 42    | 63    | 04    | 8A    | B4    | F7    |
+| **F0**  | 84    | 01    | A0    | 01    | 83    | 49    | 67    | EE    | 3E    | 2A    | 8B    | A4    | 76    | AF    | 14    | D5    |
+| **100** | 4F    | AC    | 60    | B6    | 79    | D6    | 62    | B7    | 43    | E7    | E5    | 2A    | 40    | 2C    | 6E    | 7A    |
+| **110** | 56    | 61    | 63    | 20    | 6A    | 97    | 4A    | 38    | 05    | E5    | DD    | 68    | 0D    | 78    | 4C    | 53    |
+| **120** | 8B    | D6    | 86    | 57    | B2    | AA    | 1A    | 80    | 18    | DC    | BA    | FC    | 03    | A3    | 4B    | 30    |
+
