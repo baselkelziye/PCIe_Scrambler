@@ -57,9 +57,6 @@ end
         .lfsr8_reg(lfsr3_out),
         .lfsr8_next(lfsr4_out),
         .scramble_value(lfsr4_scramble_value));
-//Later to be selected from 4x1 depending on data len.
-// assign lfsr_next = lfsr1_out;
-
 
 
 scramble_data scramble_data_u(
@@ -71,7 +68,7 @@ scramble_data scramble_data_u(
     .datak_i(datak_i),
     .scrambled_data_o(scrambled_data_next));
 
-//Assemble the Output depending on the data_len
+//Next state logic and assemble scrambled data
 always @* begin
     if(data_len_i == 2'b00) begin
         scrambled_data_tmp =  {24'b0, scrambled_data_reg[7:0]}; 

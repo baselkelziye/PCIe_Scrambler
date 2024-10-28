@@ -13,7 +13,7 @@ always @(*)
 begin
     if(data_in == `COM) begin
       lfsr8_next = 16'hFFFF;
-    end else if(data_in == `SKP) begin
+    end else if(data_in == `SKP) begin 
       lfsr8_next = lfsr8_reg;
     end else begin
       lfsr8_next[0 ] = lfsr8_reg[ 8];

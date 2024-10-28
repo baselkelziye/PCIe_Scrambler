@@ -7,12 +7,11 @@ module scramble_data(
 
 reg [31:0] scrambled_data_reg;
 
-
+//Ordered Sets Control Logic To be Added
 always @* begin  
-    if(datak_i[0] == 1'b1) begin //Control Word Don't Scramble
+    if(datak_i[0] == 1'b1) begin //Control Word Don't Scramble 
         scrambled_data_reg[7:0] = data_in[7:0];
-    end else begin
-        // scrambled_data_reg[7:0] = data_in[7:0] ^ lfsr1_scramble_value;
+    end else begin //Since the lfsr1_scramble_value[7] is the oldest, its XORed with the first bit of the data (data_in[0]) 
         scrambled_data_reg[0] = data_in[0] ^ lfsr1_scramble_value[7];
         scrambled_data_reg[1] = data_in[1] ^ lfsr1_scramble_value[6];
         scrambled_data_reg[2] = data_in[2] ^ lfsr1_scramble_value[5];
@@ -26,7 +25,6 @@ always @* begin
     if(datak_i[1] == 1'b1) begin //Control Word Don't Scramble
         scrambled_data_reg[15:8] = data_in[15:8];
     end else begin
-        // scrambled_data_reg[15:8] = data_in[15:8] ^ lfsr2_scramble_value;
         scrambled_data_reg[8] = data_in[8] ^ lfsr2_scramble_value[7];
         scrambled_data_reg[9] = data_in[9] ^ lfsr2_scramble_value[6];
         scrambled_data_reg[10] = data_in[10] ^ lfsr2_scramble_value[5];
@@ -40,7 +38,6 @@ always @* begin
     if(datak_i[2] == 1'b1) begin //Control Word Don't Scramble
         scrambled_data_reg[23:16] = data_in[23:16];
     end else begin
-        // scrambled_data_reg[23:16] = data_in[23:16] ^ lfsr3_scramble_value;
         scrambled_data_reg[16] = data_in[16] ^ lfsr3_scramble_value[7];
         scrambled_data_reg[17] = data_in[17] ^ lfsr3_scramble_value[6];
         scrambled_data_reg[18] = data_in[18] ^ lfsr3_scramble_value[5];
@@ -54,7 +51,6 @@ always @* begin
     if(datak_i[3] == 1'b1) begin //Control Word Don't Scramble
         scrambled_data_reg[31:24] = data_in[31:24];
     end else begin
-        // scrambled_data_reg[31:24] = data_in[31:24] ^ lfsr4_scramble_value;
         scrambled_data_reg[24] = data_in[24] ^ lfsr4_scramble_value[7];
         scrambled_data_reg[25] = data_in[25] ^ lfsr4_scramble_value[6];
         scrambled_data_reg[26] = data_in[26] ^ lfsr4_scramble_value[5];
@@ -63,7 +59,7 @@ always @* begin
         scrambled_data_reg[29] = data_in[29] ^ lfsr4_scramble_value[2];
         scrambled_data_reg[30] = data_in[30] ^ lfsr4_scramble_value[1];
         scrambled_data_reg[31] = data_in[31] ^ lfsr4_scramble_value[0];
-        
+
     end
 end
 
