@@ -41,7 +41,7 @@ At times, we may need to scramble 1 byte, 2 bytes, or 4 bytes. The input size is
 |**00**     | indata_i[7:0] is Valid|
 |**01**     | indata_i[15:0] is Valid|
 |**10**     | indata_i[31:0] is valid|
-
+Now For the datak_i input
 |datak_i | Control Byte|
 |--------|-------------|
 |**0001**| indata_i[7:0] is K Code|
