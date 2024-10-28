@@ -27,6 +27,7 @@ Receive LFSR on any Lane of that Link, the LFSR on the Receive side is initializ
 Check out the [PCIe 2.0 Base Specification](https://community.intel.com/cipcp26785/attachments/cipcp26785/fpga-intellectual-property/8220/1/PCI_Express_Base_Specification_v20.pdf) for more information on scrambling rules.
 ## 📜  Documentation 
 The Inputs and Output Ports for the Scrambler Component, Each input is postfixed with "_i" and the output with "_o"
+
 | Inputs | Outputs|
 |--------|--------|
 |clk_i| ----------------------|
@@ -34,14 +35,18 @@ The Inputs and Output Ports for the Scrambler Component, Each input is postfixed
 |datak_i| datak_o  |
 |data_len_i| data_len_o|
 |indata_i| scrambled_data_o|
+
 Inputs Explanations:
 At times, we may need to scramble 1 byte, 2 bytes, or 4 bytes. The input size is fixed at 32 bits, and the variable `data_len_i` is used to specify the desired size.
+
 | data_len_i | Scramble The|
 |------------|----------------------|
 |**00**     | indata_i[7:0] is Valid|
 |**01**     | indata_i[15:0] is Valid|
 |**10**     | indata_i[31:0] is valid|
+
 Now For the datak_i input
+
 |datak_i | Control Byte|
 |--------|-------------|
 |**0001**| indata_i[7:0] is K Code|
