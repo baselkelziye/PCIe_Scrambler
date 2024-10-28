@@ -1,2 +1,4 @@
 /project_1/
 /.vscode/
+/cocotb/sim_build/
+/cocotb/results.xml
