@@ -5,3 +5,4 @@
 
 ### 🔢 **PCIe GEN1 and GEN2 Scramblers**
 The LFSR in PCIe GEN1 and GEN2  implements  The polynomial $$G(X) = (X^{16} + X^{5} + X^{4} + X^{3} + 1 )$$ 
+![Scrambler Diagram](https://github.com/baselkelziye/PCIe_Scrambler/blob/main/images/scrambler_diagram.png?raw=true)
