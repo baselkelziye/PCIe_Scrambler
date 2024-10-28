@@ -8,7 +8,7 @@ The LFSR in PCIe GEN1 and GEN2  implements  The polynomial $$G(X) = (X^{16} + X^
 ![Scrambler Diagram](https://github.com/baselkelziye/PCIe_Scrambler/blob/main/images/scrambler_diagram.png?raw=true)
 
 ## 🛠️ Implementation Considerations
-Since the LFSR advances 1 state per clock and in order to scramble 1 Byte of data in 250MHz speed we need a clock with 2GHZ speed which is impractical in FPGA, And Since PCIe GEN3 uses a 32 bit width LFSR it requires 8GHZ clock speed to scramble a byte of data. Further more our scramble shall be able to scramble 1,2 and 4 byte/s of data with one clock cycle in respect with the scrambling rules imposed by the PCIe Standart.
+Since the LFSR advances 1 state per clock and in order to scramble 1 Byte of data the LFSR shall be advanced 8 times, To be able to scramble a byte of data in 250MHz speed we need a clock with 2GHZ speed which is impractical in FPGA. Further more our scramble shall be able to scramble 1,2 and 4 byte/s of data with one clock cycle in respect with the scrambling rules imposed by the PCIe Standart.
 ### 🔧 Implemented Solution
 LFSR can be parallelized easily and we will use parallelized LFSR to scramble 1,2 and 4 byte/s of data in one clock cycle. For more information on paralleled LFSR please check this [website](http://outputlogic.com/?page_id=205) 
 
@@ -25,6 +25,15 @@ Transmit LFSR, the LFSR on the Transmit side is initialized. Every time a COM en
 Receive LFSR on any Lane of that Link, the LFSR on the Receive side is initialized.
 
 Check out the [PCIe 2.0 Base Specification](https://community.intel.com/cipcp26785/attachments/cipcp26785/fpga-intellectual-property/8220/1/PCI_Express_Base_Specification_v20.pdf) for more information on scrambling rules.
+## 📜  Documentation 
+The scrambler takes  clock, reset, data/control control signal, data length and the input data as inputs.
+According to the data length it perform the scrambling functionality.
+| data_len_i | Scramble Byte Amount |
+|------------|----------------------|
+|**00**     |  Lower 1 Byte|
+|**01**     | Lower 2 Byte|
+|**10**     | Whole Input|
+- `scrambler_top.v`: Wrapper 
 
 The initial 16-bit values of the LFSR for the first 128 LFSR advances following a reset are listed
 below: 
