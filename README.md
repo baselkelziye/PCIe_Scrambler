@@ -30,8 +30,8 @@ The Inputs and Output Ports for the Scrambler Component, Each input is postfixed
 
 | Inputs | Outputs|
 |--------|--------|
-|clk_i| ----------------------|
-|rst_i| ----------------------|
+|clk_i| ----------------|
+|rst_i| ----------------|
 |datak_i| datak_o  |
 |data_len_i| data_len_o|
 |indata_i| scrambled_data_o|
@@ -45,7 +45,7 @@ At times, we may need to scramble 1 byte, 2 bytes, or 4 bytes. The input size is
 |**01**     | indata_i[15:0] is Valid|
 |**10**     | indata_i[31:0] is valid|
 
-Now For the datak_i input
+Now For the `datak_i` input
 
 |datak_i | Control Byte|
 |--------|-------------|
