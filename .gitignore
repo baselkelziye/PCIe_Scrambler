@@ -2,3 +2,4 @@
 /.vscode/
 /cocotb/sim_build/
 /cocotb/results.xml
+/resources/
