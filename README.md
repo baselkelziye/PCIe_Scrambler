@@ -58,6 +58,15 @@ Now For the `datak_i` input
 - `scramble_data.v`: Scrambling Block, Scrambles according the specs
 - `pcie_encodings.vh`: Verilog Header file for encodings of the PCIe Symbols.
 
+### The design logic works as follows:
+
+We use combinational logic to calculate the next state of the LFSR. Each LFSR8 module handles a specific byte of indata_i (e.g., LFSR8_1 processes the first byte indata_i[7:0], LFSR8_2 the second, and so on). Each LFSR8 generates its own next state and passes it forward to the subsequent LFSR8.
+
+For instance, if an SKP symbol is detected at LFSR8_2, it outputs its input directly, and LFSR8_3 uses the latest output from LFSR8_2. With a maximum of 4 bytes, we deploy 4 LFSR8 units. The final output is selected based on data_len: if only 1 byte of data is received, then LFSR8_1 is selected, and so forth.
+A high level overview of the system is shown below:
+
+![Circuit Diagram](https://github.com/baselkelziye/PCIe_Scrambler/blob/main/images/scrambler_high_level.png)
+## 🧪 Testing and Verification
 The initial 16-bit values of the LFSR for the first 128 LFSR advances following a reset are listed
 below: 
 
