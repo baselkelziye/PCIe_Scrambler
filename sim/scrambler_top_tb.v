@@ -29,7 +29,7 @@ module scarambler_top_tb();
     reg [31:0] indata_i;
     reg [1:0] data_len_i;
     wire [31: 0] scrambled_data_o;
-	
+	localparam T=10;
 
 
     scrambler_top scrambler_dut(
@@ -40,38 +40,49 @@ module scarambler_top_tb();
         .data_len_i(data_len_i),
         .scrambled_data_o(scrambled_data_o));
     
-    initial begin
-        clk_i = 0;
-        forever begin
-            #5 clk_i = ~clk_i;
-        end
+    always 
+    begin
+    	clk_i = 1'b1;
+    	#(T/2);
+    	clk_i = 1'b0;
+    	#(T/2);
     end
-
-    initial begin
     
+    initial begin  
     rst_i = 1;
-    #22;
+    #(T/2);
     rst_i = 0;
+    end
     
-    @(negedge clk_i)
-    indata_i = 32'h0;
-    datak_i = 4'b0;
-    data_len_i = 2'b00;
-	
-	@(negedge clk_i)
-    indata_i = 32'h00_00_00_BC;
+	initial begin
+	//D D D COM, 32 Bit Inputs
+	indata_i = 32'h00_00_00_BC; 
     datak_i = 4'b0_0_0_1;
     data_len_i = 2'b10;
-    
+    @(negedge rst_i) // wait for reset
+	@(negedge clk_i)  //wait for one clock
+	//D SKP SKP SKP, 32 Bit inputs
+	indata_i = 32'h00_1C_1C_1C;
+    datak_i = 4'b0_1_1_1;
+    data_len_i = 2'b10;
     @(negedge clk_i)
-    indata_i = 32'h00_1C_00_00;
-    datak_i = 4'b0_1_0_0;
+	//D, 8 Bit input
+    indata_i = 32'h00_00_00_00;
+    datak_i = 4'b0_0_0_0;
+    data_len_i = 2'b00;
+    @(negedge clk_i)
+    //D D COM D, 32 bit inputs
+    indata_i = 32'h00_00_BC_00;
+    datak_i = 4'b0_0_1_0;
     data_len_i = 2'b10;
     
     @(negedge clk_i)
+    // D D 16 bit input
     indata_i = 32'h00_00_00_00;
     datak_i = 4'b0_0_0_0;
     data_len_i = 2'b01;
+    
+    
  //GEN1/2, TESTBENCH   
 //   @(posedge clk_i);
 //   turnOff = 0;

@@ -1,0 +1,20 @@
+{
+    "signal": [
+        { "name": "clk_i", "wave": "p...........", "period": 2 },
+        { "name": "rst_i", "wave": "10........." },
+        { "name": "data_len_i", "wave": "33.xxxxxxxxxxx", "data": [ "X", "2'b10" ] },
+        { "name": "datak_i", "wave": "33.xxxxxxxxxxx", "data": [ "X", "4'b0001" ] },
+        { "name": "indata_i[7:0]", "wave": "33.33333333333", "data": [ "X", "COM", "SKP", "COM", "COM", "COM", "COM", "COM", "COM", "COM", "COM", "COM", "COM" ] },
+        { "name": "indata_i[15:8]", "wave": "33.33333333333", "data": [ "X", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00" ] },
+        { "name": "indata_i[23:16]", "wave": "33.33333333333", "data": [ "X", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00" ] },
+        { "name": "indata_i[31:24]", "wave": "33.33333333333", "data": [ "X", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00" ] },
+        { "name": "scrambled_data_o[7:0]", "wave": "33.xxxxxxxxxx", "data": [ "X", "COM", "tail" ] },
+        { "name": "scrambled_data_o[15:8]", "wave": "33.xxxxxxxxxx", "data": [ "X", "8'hFF", "tail" ] },
+        { "name": "scrambled_data_o[23:16]", "wave": "33.xxxxxxxxxx", "data": [ "X", "8'h17", "tail" ] },
+        { "name": "scrambled_data_o[31:24]", "wave": "33.xxxxxxxxxxx", "data": [ "X", "8'C0", "tail" ] },
+        { "name": "lfsr1_out", "wave": "44.xxxxxxxxxxxx", "data": ["X", "16'hFFFF"] },
+        { "name": "lfsr2_out", "wave": "44.xxxxxxxxxxx", "data": ["X", "16'hE817"] },
+        { "name": "lfsr3_out", "wave": "44.xxxxxxxxxxx", "data": ["X", "16'h0328"] },
+        { "name": "lfsr4_out", "wave": "44.xxxxxxxxxxx", "data": ["X", "16'h284b"] }
+    ]
+}
