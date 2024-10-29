@@ -131,3 +131,9 @@ An 8-bit value of 0 repeatedly encoded with the LFSR after reset produces the fo
 | **110** | 56    | 61    | 63    | 20    | 6A    | 97    | 4A    | 38    | 05    | E5    | DD    | 68    | 0D    | 78    | 4C    | 53    |
 | **120** | 8B    | D6    | 86    | 57    | B2    | AA    | 1A    | 80    | 18    | DC    | BA    | FC    | 03    | A3    | 4B    | 30    |
 
+## 📋✨ To Do ✨📋
+- TS1 and TS2 Are scrambled in this implementation, these symbols shall not be scrambled.
+- Add and verify the Descrambler circuit
+- support for PCIe GEN3+ Scrambler 
+- More robust verification
+- adding tests using cocotb framework
