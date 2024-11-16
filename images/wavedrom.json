@@ -1,20 +1,23 @@
 {
     "signal": [
-        { "name": "clk_i", "wave": "p...........", "period": 2 },
-        { "name": "rst_i", "wave": "10........." },
-        { "name": "data_len_i", "wave": "33.xxxxxxxxxxx", "data": [ "X", "2'b10" ] },
-        { "name": "datak_i", "wave": "33.xxxxxxxxxxx", "data": [ "X", "4'b0001" ] },
-        { "name": "indata_i[7:0]", "wave": "33.33333333333", "data": [ "X", "COM", "SKP", "COM", "COM", "COM", "COM", "COM", "COM", "COM", "COM", "COM", "COM" ] },
-        { "name": "indata_i[15:8]", "wave": "33.33333333333", "data": [ "X", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00" ] },
-        { "name": "indata_i[23:16]", "wave": "33.33333333333", "data": [ "X", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00" ] },
-        { "name": "indata_i[31:24]", "wave": "33.33333333333", "data": [ "X", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00", "8'h00" ] },
-        { "name": "scrambled_data_o[7:0]", "wave": "33.xxxxxxxxxx", "data": [ "X", "COM", "tail" ] },
-        { "name": "scrambled_data_o[15:8]", "wave": "33.xxxxxxxxxx", "data": [ "X", "8'hFF", "tail" ] },
-        { "name": "scrambled_data_o[23:16]", "wave": "33.xxxxxxxxxx", "data": [ "X", "8'h17", "tail" ] },
-        { "name": "scrambled_data_o[31:24]", "wave": "33.xxxxxxxxxxx", "data": [ "X", "8'C0", "tail" ] },
-        { "name": "lfsr1_out", "wave": "44.xxxxxxxxxxxx", "data": ["X", "16'hFFFF"] },
-        { "name": "lfsr2_out", "wave": "44.xxxxxxxxxxx", "data": ["X", "16'hE817"] },
-        { "name": "lfsr3_out", "wave": "44.xxxxxxxxxxx", "data": ["X", "16'h0328"] },
-        { "name": "lfsr4_out", "wave": "44.xxxxxxxxxxx", "data": ["X", "16'h284b"] }
+        { "name": "clk_i", "wave": "P.....|", "period": 2 },
+        { "name": "rst_i", "wave": "10..........|" },
+        { "name": "data_len_i", "wave": "33.3.3.3.3..|", "data": [ "X", "2'b10", "2'b10", "2'b00", "2'b10", "2'b01"] },
+        { "name": "datak_i", "wave": "33.3.3.3.3..|", "data": [ "X", "4'b0001", "4'b0111", "4'b0000", "4'b0010", "4'b0000"] },
+        { "name": "indata_i[7:0]", "wave": "33.3.3.3.3..|", "data": [ "X", "COM", "SKP", "8'h00", "8'h00", "8'h00"] },
+        { "name": "indata_i[15:8]", "wave": "33.3.9.3.3..|", "data": [ "X", "8'h00", "SKP", "8'hXX", "COM", "8'h00"] },
+        { "name": "indata_i[23:16]", "wave": "33.3.9.3.9..|", "data": [ "X", "8'h00", "SKP", "8'hXX", "8'h00", "8'hXX"] },
+        { "name": "indata_i[31:24]", "wave": "33.3.9.3.9..|", "data": [ "X", "8'h00", "8'h00", "8'hXX", "8'h00", "8'hXX"] },
+        { "name": "LFSR8_reg[15:0]", "wave": "3.3.3.3.3.3.|", "data": ["16'hFFFF", "16'h284B", "16'h4DE8", "16'hE755","16'h0328", "16'h4DE8"]},
+        { "name": "LFSR8_next[15:0]", "wave": "55.5.5.5..XX|", "data": ["16'h284B", "16'h4DE8", "16'hE755","16'h0328", "16'h4DE8"]},
+      
+        { "name": "scrambled_data_o[7:0]", "wave": "33..3.3.3.3.|", "data": [ "X", "COM", "SKP", "8'hB2", "8'hE7", "8'hC0"] },
+        { "name": "scrambled_data_o[15:8]", "wave": "33..3.9.3.3.|", "data": [ "X", "8'hFF", "SKP", "8'hXX", "COM", "8'h14"] },
+        { "name": "scrambled_data_o[23:16]", "wave": "33..3.9.3.9.|", "data": [ "X", "8'h17", "SKP", "8'hXX", "8'hFF", "8'hXX"] },
+        { "name": "scrambled_data_o[31:24]", "wave": "33..3.9.3.9.|", "data": [ "X", "8'C0", "8'h14", "8'hXX", "8'h17", "8'hXX"] },
+        { "name": "lfsr1_out", "wave": "44.4.5.4.4..|", "data": [ "X", "16'hFFFF", "16'h284B", "16'hE755", "16'h284B", "16'284B"] },
+        { "name": "lfsr2_out", "wave": "44.4.4.4.5..|", "data": [ "X", "16'hE817", "16'h284B", "16'h404F", "16'hFFFF", "16'4DE8"] },
+        { "name": "lfsr3_out", "wave": "44.4.4.4.4..|", "data": [ "X", "16'h0328", "16'h284B", "16'h4140", "16'hE817", "16'hE755"] },
+        { "name": "lfsr4_out", "wave": "45.5.4.5.4..|", "data": [ "X", "16'h284b", "16'h4DE8", "16'h4E79", "16'h0328", "16'h404F"] }
     ]
 }

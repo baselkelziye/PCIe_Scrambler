@@ -12,7 +12,8 @@ logger.setLevel(logging.INFO)
 COMMA = 0xBC  # Equivalent to 8'hBC in Verilog
 SKIP = 0x1C   # Equivalent to 8'h1C in Verilog
 lfsr = 0xFFFF  # 16-bit short for polynomial
-
+clock_period = 10
+debug_on = 1
 
 async def scramble_byte(inbyte, TrainingSequence=False):
     scrambit = [0] * 16
@@ -86,7 +87,7 @@ async def print_lfsr8(lfsr8_reg):
     hex_value = hex(binary_value)
     return hex_value
 
-# Cocotb testbench
+
 @cocotb.test()
 async def test_lfsr8(dut):
     """Testbench to verify LFSR8 operation using the lfsr8 function."""
@@ -95,28 +96,36 @@ async def test_lfsr8(dut):
     clock = Clock(dut.clk_i, 10, units="ns")
     cocotb.start_soon(clock.start())
 
+    dut.datak_i.value = 0b00
+    dut.data_len_i.value = 0b00
+    dut.indata_i.value = 0x00000000
+    dut.training_sequence_i.value = 0b0
     dut.rst_i.value = 1
     # await RisingEdge(dut.clk_i)
     # await RisingEdge(dut.clk_i)
-    await Timer(10, units="ns")
+    await Timer(clock_period, units="ns")
     dut.rst_i.value = 0
-    await Timer(10, units="ns")
+    await Timer(clock_period, units="ns")
+
     num_iterations = 8
     data_k = [0b00] * num_iterations
     data_len = [0b00] * num_iterations
     data_in = 0X00
-    dut.datak_i.value = 0b00
-    dut.data_len_i.value = 0b00
-    dut.indata_i.value = 0x00000000
-
+    
     for i in range (num_iterations):
         # Print the LFSR state after each iteration
-        scrambled_byte = await scramble_byte(data_in)
         await RisingEdge(dut.clk_i)
-        scrambled_data_out = dut.scrambled_data_o.value & 0xFF  # Extracting lower byte (8 bits)
-        dut._log.info(f"Iteration {i+1}: Python Scramble byte: 0x{scrambled_byte:02X}, DUT Scramble Byte: 0x{scrambled_data_out:02X}")
-        dut._log.info(f"Scrambler Python {lfsr:04X}")
+        scrambled_byte = await scramble_byte(data_in)
 
+        dut_scrambled_byte = dut.scrambled_data_o.value & 0xFF
+
+        if(scrambled_byte != dut_scrambled_byte):
+            didPass = False
+            break
+        if((not didPass) or debug_on):
+            dut._log.info(f"Python Scramble byte: 0x{scrambled_byte:02X}, DUT Scramble Byte: 0x{dut_scrambled_byte:02X}")
+            
 
  
     assert didPass
+
