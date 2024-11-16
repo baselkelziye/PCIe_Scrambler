@@ -136,4 +136,4 @@ An 8-bit value of 0 repeatedly encoded with the LFSR after reset produces the fo
 - Add and verify the Descrambler circuit
 - support for PCIe GEN3+ Scrambler 
 - More robust verification
-- adding tests using cocotb framework
+- ✅ adding tests using cocotb framework
