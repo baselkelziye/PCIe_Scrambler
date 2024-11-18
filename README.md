@@ -1,4 +1,5 @@
 # PCIe_Scrambler
+Note: The current diagrams Do not illustrates the GEN3, Im planning to add them soon!
 ## 🔄 **Scrambler**
 - **A Scrambler** is a method in communication systems to randomize data before transmission. Its purpose is to reduce predictable sequences in the data stream, which helps to prevent issues like electromagnetic interference (EMI) and signal distortion. Scramblers are used in many communicaton protocols such as PCI Express, SAS/SATA, USB, Bluetooth, etc. 
 - **Scramblers** are implemented using LFSR (Linear Feedback Shift Register) which is pseudorandom number generator that implements certain polynomial that specifies the next state of the LFSR.
@@ -134,6 +135,7 @@ An 8-bit value of 0 repeatedly encoded with the LFSR after reset produces the fo
 ## 📋✨ To Do ✨📋
 - ✅ TS1 and TS2 Are scrambled in this implementation, these symbols shall not be scrambled.
 - Add and verify the Descrambler circuit
-- support for PCIe GEN3+ Scrambler 
+- ✅ support for PCIe GEN3+ Scrambler 
 - More robust verification
-- ✅ adding tests using cocotb framework
+- ✅ Adding tests using cocotb framework
+- Add drawings for PCI Gen3 and New system
