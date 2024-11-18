@@ -16,5 +16,5 @@ MODULE = PCIe_scrambler
 COCOTB_REDUCED_LOG_FMT = True
 
 # Pass the include directory to Icarus Verilog
-export EXTRA_ARGS=$(IVERILOG_INCLUDE)
+COMPILE_ARGS += -I$(HDL_DIR)
 include $(shell cocotb-config --makefiles)/Makefile.sim

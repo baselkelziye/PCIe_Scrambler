@@ -1,19 +1,21 @@
 `timescale 1ns / 1ps
 
-module lfsr8(
+module gen1_lfsr8(
     input [7:0] data_in,
     input [15:0] lfsr8_reg,
+    input scramble_enable_i,
     output reg [15:0] lfsr8_next,
     output [7:0] scramble_value);
 	
-`include "pcie_encodings.vh"
+
+  `include "pcie_encodings.vh"
 
 
 always @(*)
 begin
     if(data_in == `COM) begin
       lfsr8_next = 16'hFFFF;
-    end else if(data_in == `SKP) begin 
+    end else if(data_in == `SKP || (~scramble_enable_i)) begin 
       lfsr8_next = lfsr8_reg;
     end else begin
       lfsr8_next[0 ] = lfsr8_reg[ 8];
