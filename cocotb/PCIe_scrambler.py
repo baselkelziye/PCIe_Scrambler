@@ -178,11 +178,12 @@ async def gen1_2_lfsr(dut):
     clock = Clock(dut.clk_i, 10, units="ns")
     cocotb.start_soon(clock.start())
 
-    dut.datak_i.value = 0b00
+    dut.datak_i.value = 0b0000
     dut.data_len_i.value = 0b00
     dut.indata_i.value = 0x00000000
-    dut.training_sequence_i.value = 0b0
+    dut.training_sequence_i.value = 0b0000
     dut.rst_i.value = 1
+    dut.scramble_enable_i.value = 0b1
     dut.pcie_gen.value = 0b0
     # await RisingEdge(dut.clk_i)
     # await RisingEdge(dut.clk_i)
@@ -199,6 +200,8 @@ async def gen1_2_lfsr(dut):
         # Print the LFSR state after each iteration
         await RisingEdge(dut.clk_i)
         scrambled_byte = await scramble_byte(data_in)
+        dut._log.info(f"DUT DATA: {dut.scrambled_data_o.value}")
+        dut._log.info(f"DUR LFSR: {dut.gen1_scrambler_u.g1_lfsr_reg.value}")
 
         dut_scrambled_byte = dut.scrambled_data_o.value & 0xFF
         dut_lfsr_value = dut.gen1_scrambler_u.g1_lfsr_reg.value & 0xFFFF

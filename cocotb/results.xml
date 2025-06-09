@@ -1,7 +1,7 @@
 <testsuites name="results">
   <testsuite name="all" package="all">
-    <property name="random_seed" value="1731876959" />
-    <testcase name="gen1_2_lfsr" classname="PCIe_scrambler" file="/media/sf_PCIe_scrambler/cocotb/PCIe_scrambler.py" lineno="171" time="2.2199227809906006" sim_time_ns="3010.001" ratio_time="1355.9034691543827" />
-    <testcase name="gen3_scrambler_test" classname="PCIe_scrambler" file="/media/sf_PCIe_scrambler/cocotb/PCIe_scrambler.py" lineno="216" time="1.7615883350372314" sim_time_ns="3010.001" ratio_time="1708.6858150297546" />
+    <property name="random_seed" value="1749486849" />
+    <testcase name="gen1_2_lfsr" classname="PCIe_scrambler" file="/home/bkelziye/Desktop/PCIe_Scrambler/cocotb/PCIe_scrambler.py" lineno="171" time="0.21719670295715332" sim_time_ns="3010.001" ratio_time="13858.41018311308" />
+    <testcase name="gen3_scrambler_test" classname="PCIe_scrambler" file="/home/bkelziye/Desktop/PCIe_Scrambler/cocotb/PCIe_scrambler.py" lineno="219" time="0.18137288093566895" sim_time_ns="3010.001" ratio_time="16595.65081875507" />
   </testsuite>
 </testsuites>

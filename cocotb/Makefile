@@ -1,4 +1,5 @@
 SIM=icarus
+WAVES=1
 TOPLEVEL_LANG=verilog
 
 HDL_DIR := ../hdl
