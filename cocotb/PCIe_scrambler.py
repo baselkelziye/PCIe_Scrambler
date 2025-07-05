@@ -201,10 +201,10 @@ async def gen1_2_lfsr(dut):
         await RisingEdge(dut.clk_i)
         scrambled_byte = await scramble_byte(data_in)
         dut._log.info(f"DUT DATA: {dut.scrambled_data_o.value}")
-        dut._log.info(f"DUR LFSR: {dut.gen1_scrambler_u.g1_lfsr_reg.value}")
+        dut._log.info(f"DUR LFSR: {dut.gen1_scrambler_u.global_lfsr_reg.value}")
 
         dut_scrambled_byte = dut.scrambled_data_o.value & 0xFF
-        dut_lfsr_value = dut.gen1_scrambler_u.g1_lfsr_reg.value & 0xFFFF
+        dut_lfsr_value = dut.gen1_scrambler_u.global_lfsr_reg.value & 0xFFFF
 
         if(scrambled_byte != dut_scrambled_byte):
             didPass = False
@@ -234,6 +234,7 @@ async def gen3_scrambler_test(dut):
     dut.data_len_i.value = 0b00
     dut.indata_i.value = 0x00
     dut.training_sequence_i.value = 0b0
+    dut.scramble_enable_i.value = 0b1
     dut.rst_i.value = 1
     dut.pcie_gen.value = 0b1  # Set PCIE_GEN to 1 for GEN3 scrambler
 
@@ -255,7 +256,7 @@ async def gen3_scrambler_test(dut):
 
         # Read DUT outputs
         dut_scrambled_byte = dut.scrambled_data_o.value & 0xFF
-        dut_lfsr_value = dut.gen3_scrambler_u.g3_lfsr_reg.value & 0x7FFFFF
+        dut_lfsr_value = dut.gen3_scrambler_u.global_lfsr_reg.value & 0x7FFFFF
 
         # Compare outputs
         if scrambled_byte != dut_scrambled_byte:

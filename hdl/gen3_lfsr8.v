@@ -1,21 +1,21 @@
 module gen3_lfsr8(
-    input [7:0] data_in,
-    input [22:0] lfsr_reg, lfsr_seed,
-    input scramble_enable_i,
-    output reg [22:0] lfsr_next,
-    output [7:0] scramble_value
+    input      [7:0 ] data_in          ,
+    input      [22:0] lfsr_reg         ,
+    input      [22:0] lfsr_seed        ,
+    input             scramble_enable_i,
+    output reg [22:0] lfsr_next        ,
+    output     [7: 0] scramble_value
 );
 
 
 reg [7:0] scramble_tmp;
 
 always @(*) begin
+    scramble_tmp = 8'h0;
     if(data_in == `COM) begin
         lfsr_next    = lfsr_seed;
-        scramble_tmp = 8'h00;
       end else if(data_in == `SKP || (~scramble_enable_i)) begin 
         lfsr_next    = lfsr_reg;
-        scramble_tmp = 8'h00;
       end else begin
         lfsr_next[0 ] = lfsr_reg[15] ^ lfsr_reg[17] ^ lfsr_reg[19] ^ lfsr_reg[21] ^ lfsr_reg[22];
         lfsr_next[1 ] = lfsr_reg[16] ^ lfsr_reg[18] ^ lfsr_reg[20] ^ lfsr_reg[22];

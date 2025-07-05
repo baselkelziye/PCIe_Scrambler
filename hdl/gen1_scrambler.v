@@ -23,22 +23,22 @@ module gen1_scrambler(
   wire [31:0] scrambled_data_next;
 
   //Use flatter arrays instead of multidimensional.
-  reg  [LFSR_LENGTH-1:0] g1_lfsr_reg, g1_lfsr_next; //LFSR Next, Reg States
+  reg  [LFSR_LENGTH-1:0] global_lfsr_reg, global_lfsr_next; //LFSR Next, Reg States
   wire [LFSR_LENGTH*CHUNK_SIZE-1:0] lfsr_reg; //4x LFSR Size, for each LFSR
   wire [LFSR_LENGTH*CHUNK_SIZE-1:0] g1_lfsr_out; // The LFSR, Holds 4X LFSR Outputs
   wire [BYTE*CHUNK_SIZE-1:0] lfsr_scramble_value; //The Byte value to scramble data with
 
   always @(posedge clk_i, posedge rst_i) begin
     if(rst_i) begin
-      g1_lfsr_reg        <= 16'hFFFF;
-      scrambled_data_reg <= 32'hFFFF;
+      global_lfsr_reg    <= 16'hFFFF    ;
+      scrambled_data_reg <= 32'hDEADC0DE;
     end else begin
-      g1_lfsr_reg        <= g1_lfsr_next;
+      global_lfsr_reg    <= global_lfsr_next   ;
       scrambled_data_reg <= scrambled_data_next;
     end
   end
 
-  assign lfsr_reg = {g1_lfsr_out[2:0], g1_lfsr_reg}; //LFSR state INPUTS for each LFSR, First LFSR gets its value from Global LFSR Reg 
+  assign lfsr_reg = {g1_lfsr_out[3*LFSR_LENGTH-1:0*LFSR_LENGTH], global_lfsr_reg}; //LFSR state INPUTS for each LFSR, First LFSR gets its value from Global LFSR Reg 
  
   //Generate 4 LFSR
   genvar i; 
@@ -68,20 +68,20 @@ module gen1_scrambler(
   always @* begin
     case(data_len_i)
     ADVANCE_ONE: begin
-      scrambled_data_tmp =  {24'b0, scrambled_data_reg[7:0]};
-      g1_lfsr_next = g1_lfsr_out[15:0]; 
+      scrambled_data_tmp =  {24'b0, scrambled_data_reg[7:0]}             ;
+      global_lfsr_next   = g1_lfsr_out[LFSR_LENGTH*(0+1)-1:LFSR_LENGTH*0]; 
     end
     ADVANCE_TWO: begin
-      scrambled_data_tmp =  {16'b0, scrambled_data_reg[15:0]};
-      g1_lfsr_next = g1_lfsr_out[31:16];
+      scrambled_data_tmp =  {16'b0, scrambled_data_reg[15:0]}            ;
+      global_lfsr_next   = g1_lfsr_out[LFSR_LENGTH*(1+1)-1:LFSR_LENGTH*1];
     end
     ADVANCE_FOUR: begin
-      scrambled_data_tmp = scrambled_data_reg;
-      g1_lfsr_next = g1_lfsr_out[63:48];
+      scrambled_data_tmp = scrambled_data_reg                            ;
+      global_lfsr_next   = g1_lfsr_out[LFSR_LENGTH*(3+1)-1:LFSR_LENGTH*3];
     end
     default: begin
       scrambled_data_tmp = 32'hDEADC0DE;
-      g1_lfsr_next = 16'hFFFF;
+      global_lfsr_next   = 16'hFFFF    ;
     end
     endcase   
 end
